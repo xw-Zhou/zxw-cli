@@ -2,26 +2,21 @@
 
 const inquirer = require('inquirer');
 const program = require('commander');
-const create=require('./lib/create.js')
+const create=require('./lib/create.js');
+const path= require('path');
 
-// inquirer.prompt([
-//     {
-//         type:'input',
-//         name:'name',
-//         message:'请输入项目名称',
-//         default:'default-name'
-//     }
-// ]).then(res=>{
-//     console.log(res)
-// })
+const rootPath=path.resolve(__dirname);
 
 program
     .command('create <app-name>')
     .description('Create a new project')
     .option('-f, --force', 'overwrite target directory if it exist')
-    .action((name, option) => {
-        // console.log(name, option)
-        create(name, option)
+    .action((name, options) => {
+        create({
+            name,
+            options,
+            rootPath
+        })
     })
 
 // program
